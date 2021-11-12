@@ -6,6 +6,7 @@ export function middleware(request) {
   const acceptLanguageHeader = request.headers.get('Accept-Language')
   const nextLocaleCookie = request.cookies && request.cookies.NEXT_LOCALE
 
+  console.log(request.headers)
   if (
     PUBLIC_FILE.test(request.nextUrl.pathname) 
     || (!acceptLanguageHeader && !nextLocaleCookie)
@@ -14,6 +15,7 @@ export function middleware(request) {
   }
 
   if (nextLocaleCookie) {
+    console.log(request.nextUrl.pathname, request.nextUrl.pathname.includes(`/${nextLocaleCookie}`))
     if (request.nextUrl.pathname.includes(`/${nextLocaleCookie}`)) {
       return undefined
     }

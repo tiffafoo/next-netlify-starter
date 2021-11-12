@@ -3,16 +3,24 @@ module.exports = {
     defaultLocale: 'en',
     locales: ['en', 'es', 'fr']
   },
-  async headers() {
+  async redirects() {
     return [
       {
-        source: '/',
-        headers: [
+        source: '/:path*',
+        has: [
           {
-            key: 'Accept-Language',
-            value: 'fr;q=0.9',
-          }
+            type: 'header',
+            key: 'Accepted-Language',
+            value: '(?<accepted-language>en|es|fr)',
+          },
+          {
+            type: 'cookie',
+            key: 'NEXT_LOCALE',
+            value: '(?<next-locale-value>en|es|fr)',
+          },
         ],
+        permanent: false,
+        destination: '<next-locale-value>/:path*',
       },
     ]
   }

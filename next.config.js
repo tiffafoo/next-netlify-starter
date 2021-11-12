@@ -11,12 +11,12 @@ module.exports = {
           {
             type: 'header',
             key: 'Accepted-Language',
-            value: '(?<accepted-language>en|es|fr)',
+            value: '(?<accepted-language>.*)',
           },
           {
             type: 'cookie',
             key: 'NEXT_LOCALE',
-            value: '(?<next-locale-value>en|es|fr)',
+            value: '(?<next-locale-value>.*)',
           },
         ],
         permanent: false,

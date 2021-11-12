@@ -9,13 +9,19 @@ export function middleware(request) {
   if (
     PUBLIC_FILE.test(request.nextUrl.pathname) 
     || (!acceptLanguageHeader && !nextLocaleCookie)
-    || (request.nextUrl.pathname.includes(`/${acceptLanguageHeader}/`) || request.nextUrl.pathname.includes(`/${nextLocaleCookie}/`))
   ) {
     return undefined
   }
 
   if (nextLocaleCookie) {
+    if (request.nextUrl.pathname.includes(`/${nextLocaleCookie}`)) {
+      return undefined
+    }
     return NextResponse.redirect(`/${nextLocaleCookie}${request.nextUrl.href}`)
+  }
+
+  if (request.nextUrl.pathname.includes(`/${acceptLanguageHeader}`)) {
+    return undefined
   }
 
   return NextResponse.redirect(`/${acceptLanguageHeader}${request.nextUrl.href}`)
